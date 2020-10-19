@@ -1,21 +1,11 @@
-const webpush = require('web-push');
 const dotenv = require('dotenv');
 const asyncHandler = require('../middleware/async');
 const User = require('../models/User');
+
 // load env vars
 dotenv.config({ path: './config/config.env' });
+
 // const vapidKeys = webpush.generateVAPIDKeys();
-// console.log(vapidKeys);
-webpush.setGCMAPIKey(process.env.GCMAPI_KEY);
-const vapidKeys = {
-	publicKey: process.env.PUBLIC_KEY,
-	privateKey: process.env.PRIVATE_KEY,
-};
-webpush.setVapidDetails(
-	'mailto:myego0@gmail.com',
-	vapidKeys.publicKey,
-	vapidKeys.privateKey
-);
 
 const isValidSaveRequest = (req, res) => {
 	if (!req.body || !req.body.subscription.endpoint) {
@@ -55,7 +45,10 @@ exports.subscribeUser = asyncHandler(async (req, res) => {
 	let promiseChain = Promise.resolve();
 	promiseChain = promiseChain.then(() => {
 		console.log('runs inside push', req.body.subscription);
-		triggerPush(req.body.subscription, 'dataToSend');
+		triggerPush(
+			req.body.subscription,
+			'Congratulations! You are now subscribed to notifications!'
+		);
 	});
 	res.status(200).json({
 		success: true,
