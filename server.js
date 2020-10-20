@@ -5,6 +5,8 @@ const cors = require('cors');
 const routes = require('./routes/routes');
 const connectDB = require('./config/db');
 const webpush = require('web-push');
+// const vapidKeys = webpush.generateVAPIDKeys();
+
 webpush.setGCMAPIKey(process.env.GCMAPI_KEY);
 const vapidKeys = {
 	publicKey: process.env.PUBLIC_KEY,
@@ -22,8 +24,6 @@ app.use(express.json());
 //connect to database
 connectDB();
 
-//app.use(cors());
-//app.options('*', cors());
 app.use((req, res, next) => {
 	res.append('Access-Control-Allow-Origin', process.env.DOMAIN);
 	res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -36,12 +36,12 @@ app.use((req, res, next) => {
 app.use('/api', routes);
 const subLocal = {
 	endpoint:
-		'https://fcm.googleapis.com/fcm/send/df4PD8LjLQo:APA91bFG9FMjBgLBuG2_fr38AzfAYKAwm_BBaTjKpKFcXNQJrwSWhVJCKT-G1gH5m48DEfqdT8AnHT5mWDa0e0er6pOQuTScYSBTp5DTf89P9allp_dlj3LBS8TwH3hvYCbiYNU_B5G2',
+		'https://fcm.googleapis.com/fcm/send/egnY8zm3_sw:APA91bF2FTnz-Mq8Rd_2KizYjqWaWgKUGby3llcbFMtYfb1HFA2FkLgfV4K4wccNxdjITDyYCRswqSKiUwMhUN38xPCn2DaR_1tilTr622BLIfmvYSDPOFK9QZ8dVQ03znPBXJwVsslz',
 	expirationTime: null,
 	keys: {
 		p256dh:
-			'BHWgqR6H2Zxoxi0QEMYA_mxZSocUHTkLZPxa1eVwz1cKU_8zrzjCrirpheh8uYKOdJ6lIYBX-Ok1Hp8Z8eHD3xk',
-		auth: 'tqYGyV1DQvk7awTN-qDXcw',
+			'BBIZY-MU_eIdgCiaRTYHjQrGfyBDrZ0QU-xeozxofcwbC3QAsRRmlhP2765V1A-zWMFJEVcniD-ZLreDr73AIrw',
+		auth: 'JV_7LUF9Saixt-az9Zk1LQ',
 	},
 };
 app.post('/api/push', (req, res) => {
