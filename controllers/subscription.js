@@ -1,9 +1,21 @@
 const dotenv = require('dotenv');
 const asyncHandler = require('../middleware/async');
 const User = require('../models/User');
+const webpush = require('web-push');
+// const vapidKeys = webpush.generateVAPIDKeys();
 
 // load env vars
 dotenv.config({ path: './config/config.env' });
+webpush.setGCMAPIKey(process.env.GCMAPI_KEY);
+const vapidKeys = {
+	publicKey: process.env.PUBLIC_KEY,
+	privateKey: process.env.PRIVATE_KEY,
+};
+webpush.setVapidDetails(
+	'mailto:myego0@gmail.com',
+	vapidKeys.publicKey,
+	vapidKeys.privateKey
+);
 
 // const vapidKeys = webpush.generateVAPIDKeys();
 
