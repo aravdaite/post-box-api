@@ -22,8 +22,8 @@ app.use(express.json());
 //connect to database
 connectDB();
 
-app.use(cors());
-app.options('*', cors());
+//app.use(cors());
+//app.options('*', cors());
 app.use((req, res, next) => {
 	res.append('Access-Control-Allow-Origin', process.env.DOMAIN);
 	res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
