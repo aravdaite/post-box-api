@@ -40,7 +40,7 @@ const isValidSaveRequest = (req, res) => {
 // @route     POST /api/subscribe
 // @access    Public
 exports.subscribeUser = asyncHandler(async (req, res) => {
-	console.log(req);
+	console.log(req.body);
 	if (!isValidSaveRequest(req, res)) {
 		return;
 	}
