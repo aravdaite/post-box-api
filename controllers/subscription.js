@@ -40,7 +40,6 @@ const isValidSaveRequest = (req, res) => {
 // @route     POST /api/subscribe
 // @access    Public
 exports.subscribeUser = asyncHandler(async (req, res) => {
-	console.log(req.body);
 	if (!isValidSaveRequest(req, res)) {
 		return;
 	}
@@ -57,11 +56,7 @@ exports.subscribeUser = asyncHandler(async (req, res) => {
 	}
 	let promiseChain = Promise.resolve();
 	promiseChain = promiseChain.then(() => {
-		console.log('runs inside push', req.body.subscription);
-		triggerPush(
-			req.body.subscription,
-			'Congratulations! You are now subscribed to notifications!'
-		);
+		triggerPush(req.body.subscription, 'subscription');
 	});
 	res.status(200).json({
 		success: true,
