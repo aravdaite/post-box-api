@@ -68,7 +68,7 @@ exports.subscribeUser = asyncHandler(async (req, res) => {
 exports.unsubscribeUser = asyncHandler(async (req, res) => {
 	console.log('runs here');
 	// if subscription does not exists, do nothing
-	await User.remove({
+	await User.deleteOne({
 		subscription: req.body.subscription,
 	});
 	res.status(200).json({
@@ -119,3 +119,22 @@ app.post('/api/push', (req, res) => {
 	//	});
 });
 */
+
+// @desc      Send user notification about the receive post
+// @route     POST /api/sendNotification
+// @access    Public
+exports.sendNotification = asyncHandler(async (req, res) => {
+	console.log(req.body.name);
+	// if subscription exists, do nothing
+	const foundUser = await User.findOne({
+		name: req.body.name,
+	});
+	console.log(foundUser.subscription);
+	let promiseChain = Promise.resolve();
+	promiseChain = promiseChain.then(() => {
+		triggerPush(foundUser.subscription, 'notification');
+	});
+	res.status(200).json({
+		success: true,
+	});
+});
