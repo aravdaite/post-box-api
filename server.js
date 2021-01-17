@@ -42,10 +42,3 @@ process.on('unhandledRejection', (err, promise) => {
 	// close server and exit process
 	server.close(() => process.exit(1));
 });
-
-// handle unhandled promise rejection
-process.on('unhandledRejection', (err, promise) => {
-	console.log(`Error: ${err.message}`);
-	// close server and exit process
-	server.close(() => process.exit(1));
-});

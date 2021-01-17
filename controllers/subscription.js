@@ -138,3 +138,13 @@ exports.sendNotification = asyncHandler(async (req, res) => {
 		success: true,
 	});
 });
+
+// @desc      Send picture from the camera/hardware to the server
+// @route     PUT /api/sendPicture
+// @access    Public
+exports.sendPicture = asyncHandler(async (req, res) => {
+	console.log(req.body);
+	res.status(200).json({
+		success: true,
+	});
+});
