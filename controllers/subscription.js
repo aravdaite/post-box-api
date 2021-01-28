@@ -158,10 +158,10 @@ exports.sendPicture = asyncHandler(async (req, res) => {
 exports.sampleGet = asyncHandler(async (req, res) => {
 	console.log('sendPicture', req.body);
 	// if subscription exists, do nothing
-	const data = 'Hello from backend!';
+	const data1 = 'Hello from backend!';
 
 	res.status(200).json({
 		success: true,
-		data,
+		data: data1,
 	});
 });
