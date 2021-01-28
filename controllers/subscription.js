@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 const asyncHandler = require('../middleware/async');
 const User = require('../models/User');
+const Income = require('../models/Income');
 const webpush = require('web-push');
 // const vapidKeys = webpush.generateVAPIDKeys();
 
@@ -143,8 +144,24 @@ exports.sendNotification = asyncHandler(async (req, res) => {
 // @route     PUT /api/sendPicture
 // @access    Public
 exports.sendPicture = asyncHandler(async (req, res) => {
-	console.log(req.body);
+	console.log('sendPicture', req.body);
+	// if subscription exists, do nothing
+
+	await Income.create({
+		data: req.body,
+	});
+
 	res.status(200).json({
 		success: true,
+	});
+});
+exports.sampleGet = asyncHandler(async (req, res) => {
+	console.log('sendPicture', req.body);
+	// if subscription exists, do nothing
+	const data = 'Hello from backend!';
+
+	res.status(200).json({
+		success: true,
+		data,
 	});
 });
