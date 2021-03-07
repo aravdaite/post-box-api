@@ -3,7 +3,6 @@ const http = require('http');
 const errorHandler = require('./middleware/error');
 const cors = require('cors');
 const routes = require('./routes/routes');
-const connectDB = require('./config/db');
 
 const app = express();
 app.use(express.json());
@@ -21,12 +20,6 @@ app.use((req, res, next) => {
 
 //mount routes
 app.use('/api', routes);
-
-app.get('/api/push', (req, res) => {
-	res.status(200).json({
-		success: true,
-	});
-});
 
 const PORT = process.env.PORT || 5000;
 const server = http.Server(app);
